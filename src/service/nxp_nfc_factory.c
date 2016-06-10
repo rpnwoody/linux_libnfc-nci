@@ -16,7 +16,7 @@
 
 #ifdef NXP_HW_SELF_TEST
 
-#include "linux_nfc_factory_api.h"
+#include "nxp_nfc_factory.h"
 #include "phNxpNciHal_SelfTest.h"
 #include "nfa_api.h"
 

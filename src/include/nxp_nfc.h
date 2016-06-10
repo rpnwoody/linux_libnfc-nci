@@ -16,8 +16,8 @@
  *
  ******************************************************************************/
 
-#ifndef __LINUX_NFC_API__H__
-#define __LINUX_NFC_API__H__
+#ifndef __NXP_NFC__H__
+#define __NXP_NFC__H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -769,4 +769,4 @@ extern int nfcLlcp_ConnLessReceiveMessage(unsigned char* msg, unsigned int *leng
 }
 #endif
 
-#endif //__LINUX_NFC_API__H__
+#endif //__NXP_NFC__H__

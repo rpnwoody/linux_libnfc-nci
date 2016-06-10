@@ -20,7 +20,7 @@
 #define __NATIVE_NFC_SNEP_H__
 
 #include "data_types.h"
-#include "linux_nfc_api.h"
+#include "nxp_nfc.h"
 
 #ifdef __cplusplus
 extern "C" {

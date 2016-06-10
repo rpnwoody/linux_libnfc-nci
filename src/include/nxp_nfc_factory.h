@@ -16,8 +16,8 @@
  *
  ******************************************************************************/
 
-#ifndef _LINUX_NFC_FACTORY_H_
-#define _LINUX_NFC_FACTORY_H_
+#ifndef _NXP_NFC_FACTORY_H_
+#define _NXP_NFC_FACTORY_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -132,5 +132,5 @@ int nfcFactory_GetMwVersion ();
 }
 #endif
 
-#endif /* _LINUX_NFC_FACTORY_H_ */
+#endif /* _NXP_NFC_FACTORY_H_ */
 

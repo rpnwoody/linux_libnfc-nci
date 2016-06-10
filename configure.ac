@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([libnfc_nci_linux], [1.0])
+AC_INIT([nxp_nfc], [1.0])
 AM_INIT_AUTOMAKE([foreign subdir-objects color-tests])
 AC_CONFIG_HEADERS([config.h])
 
@@ -39,7 +39,7 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 _AC_FUNC_MALLOC_IF
 
-AC_CHECK_FUNCS([gettimeofday memmove memset strerror strstr])
+AC_CHECK_FUNCS([gettimeofday memmove memset strerror strstr strtol])
 AC_CHECK_FUNCS([clock_gettime])
 AC_CHECK_FUNCS([select])
 AC_CHECK_FUNCS([dlopen])

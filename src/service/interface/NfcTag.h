@@ -39,7 +39,7 @@
 extern "C"
 {
     #include "nfa_rw_api.h"
-    #include "linux_nfc_api.h"
+    #include "nxp_nfc.h"
 }
 
 typedef struct activationParams{
