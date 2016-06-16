@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I m4
+
 lib_LTLIBRARIES = libnxp_nfc.la
 
 sbin_PROGRAMS = nfcDemoApp 
@@ -233,4 +235,4 @@ libnxp_nfc_la_LDFLAGS += -shared -pthread -ldl -lrt -fPIC -release 1 -versionnfo
 
 nfcDemoApp_LDFLAGS = -pthread -ldl -lrt -lnxp_nfc
 
-
+EXTRA_DIST = conf doc
