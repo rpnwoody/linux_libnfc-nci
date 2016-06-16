@@ -19,7 +19,7 @@ AC_CONFIG_SRCDIR([src/halimpl/pn54x/utils/phNxpConfig.cpp])
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h sys/time.h unistd.h])
 AC_CHECK_HEADERS([fcntl.h sys/ioctl.h termios.h])
-AC_CHECK_HEADERS([malloc.h])
+AC_CHECK_HEADERS([malloc.h memory.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
@@ -43,6 +43,7 @@ AC_CHECK_FUNCS([gettimeofday memmove memset strerror strstr strtol])
 AC_CHECK_FUNCS([clock_gettime])
 AC_CHECK_FUNCS([select])
 AC_CHECK_FUNCS([dlopen])
+AC_CHECK_FUNCS([strtol])
 
 AC_CONFIG_FILES([Makefile])
 
@@ -62,10 +63,8 @@ AC_ARG_ENABLE([pn7120],
   *) AC_MSG_ERROR([bad value ${enableval} for --enable-pn7120]) ;;
 esac],[pn7120=false])
 
-AC_ARG_VAR(openssldir, help-string)
-
 AC_ARG_ENABLE([llcp1_3],
-[  --enable-llcp1_3    enable LLCP1.3 (secured P2P)],
+[  --enable-llcp1_3    enable LLCP1.3 (secured P2P - requires openssl)],
 [case "${enableval}" in
   yes) llcp1_3=true ;;
   no)  llcp1_3=false ;;
@@ -84,16 +83,13 @@ if [test "$COUNT" -gt 1]; then
 AC_MSG_ERROR(Can not enable multiple chip type)
 fi])
 
-AM_CONDITIONAL([LLCP1_3_ENABLED], [if [$llcp1_3]; then
-AC_MSG_NOTICE([LLCP1.3 support is enabled (secure P2P)])
-if ["${ac_cv_env_openssldir_set}" = "set"]; then
-AC_MSG_NOTICE([openssldir path set])
-else
-AC_MSG_ERROR(path to openssldir not set (required when LLCP1.3 support is enabled))
-fi
-else
-AC_MSG_NOTICE([LLCP1.3 support is disabled (no secure P2P)])
-fi])
+AM_CONDITIONAL([LLCP1_3],  [test x$llcp1_3  = xtrue])
+AM_COND_IF([LLCP1_3], [
+  PKG_CHECK_MODULES([OPENSSL], [openssl], [
+    AC_MSG_NOTICE([LLCP1.3 support is enabled (secured P2P)])], [
+    AC_MSG_ERROR(openssl not available but required when LLCP1.3 support is enabled)])], [
+  AC_MSG_NOTICE([LLCP1.3 support is disabled (no secure P2P)])
+])
 
 AM_CONDITIONAL([CHIP_SEL_ONE], [if [$pn7150]; then
 AC_MSG_NOTICE([Selected chip type is PN7150])
@@ -103,8 +99,6 @@ else
 AC_MSG_NOTICE([Selected chip type is PN7120])
 pn7120=true
 fi])
-
-AM_CONDITIONAL([LLCP1_3],  [test x$llcp1_3  = xtrue])
 
 AM_CONDITIONAL([PN7150], [test x$pn7150 = xtrue])
 

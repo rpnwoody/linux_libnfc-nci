@@ -8,7 +8,7 @@ nfcDemoApp_DEPENDENCIES = libnxp_nfc.la
 LDFLAGS = -Bstatic 
 
 if LLCP1_3
-LDFLAGS += -L$(openssldir)/lib -lcrypto -lssl
+LDFLAGS += $(OPENSSL_LIBS)
 endif
 
 nfcDemoApp_FLAGS = -I$(srcdir)/demoapp -I$(srcdir)/src/include 
@@ -21,7 +21,7 @@ AM_CPPFLAGS = \
 
 if LLCP1_3
 AM_CPPFLAGS += \
-	-I$(openssldir)/include
+	$(OPENSSL_CFLAGS)
 endif
 	
 configdir = ${sysconfdir}
