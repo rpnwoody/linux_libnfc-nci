@@ -231,7 +231,9 @@ libnxp_nfc_la_LDFLAGS :=
 libnxp_nfc_la_LDFLAGS +=-DPN547C2=1
 libnxp_nfc_la_LDFLAGS +=-DPN548C2=2
 libnxp_nfc_la_LDFLAGS +=-DPN551C2=3
-libnxp_nfc_la_LDFLAGS += -shared -pthread -ldl -lrt -fPIC -release 1 -versionnfo 0:0:0
+libnxp_nfc_la_LDFLAGS += \
+	-shared -pthread -ldl -lrt -fPIC \
+	-version-info $(LIBNXP_NFC_CURRENT):$(LIBNXP_NFC_REVISION):$(LIBNXP_NFC_AGE)
 
 nfcDemoApp_LDFLAGS = -pthread -ldl -lrt -lnxp_nfc
 

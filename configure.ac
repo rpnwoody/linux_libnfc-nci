@@ -2,9 +2,18 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([nxp_nfc], [1.0])
+AC_INIT([nxp_nfc], [2.2])
 AM_INIT_AUTOMAKE([foreign subdir-objects color-tests])
 AC_CONFIG_HEADERS([config.h])
+
+# libtool versioning
+LIBNXP_NFC_CURRENT=0
+LIBNXP_NFC_REVISION=0
+LIBNXP_NFC_AGE=0
+
+AC_SUBST(LIBNXP_NFC_CURRENT)
+AC_SUBST(LIBNXP_NFC_REVISION)
+AC_SUBST(LIBNXP_NFC_AGE)
 
 # Checks for programs.
 AC_PROG_CXX
