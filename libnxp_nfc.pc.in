@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libnxp_nfc
+Description: NXP NFC library
+Version: @VERSION@
+URL: @PACKAGE_URL@
+Requires.private: @LIBNXP_NFC_PRIVATE_PKGS@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lnxp_nfc

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([nxp_nfc], [2.2])
+AC_INIT([nxp_nfc], [2.2], [], [], [https://github.com/NXPNFCLinux/linux_libnfc-nci])
 AM_INIT_AUTOMAKE([foreign subdir-objects color-tests])
 AC_CONFIG_HEADERS([config.h])
 
@@ -54,7 +54,10 @@ AC_CHECK_FUNCS([select])
 AC_CHECK_FUNCS([dlopen])
 AC_CHECK_FUNCS([strtol])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([
+Makefile
+libnxp_nfc.pc
+])
 
 AC_ARG_ENABLE([pn7150],
 [  --enable-pn7150    set chip version to PN7150],
@@ -92,13 +95,17 @@ if [test "$COUNT" -gt 1]; then
 AC_MSG_ERROR(Can not enable multiple chip type)
 fi])
 
+LIBNXP_NFC_PRIVATE_PKGS=""
+
 AM_CONDITIONAL([LLCP1_3],  [test x$llcp1_3  = xtrue])
-AM_COND_IF([LLCP1_3], [
-  PKG_CHECK_MODULES([OPENSSL], [openssl], [
-    AC_MSG_NOTICE([LLCP1.3 support is enabled (secured P2P)])], [
-    AC_MSG_ERROR(openssl not available but required when LLCP1.3 support is enabled)])], [
-  AC_MSG_NOTICE([LLCP1.3 support is disabled (no secure P2P)])
-])
+AM_COND_IF([LLCP1_3],
+  [PKG_CHECK_MODULES([OPENSSL], [openssl],
+    [AC_MSG_NOTICE([LLCP1.3 support is enabled (secured P2P)])
+    LIBNXP_NFC_PRIVATE_PKGS="openssl"],
+    [AC_MSG_ERROR(openssl not available but required when LLCP1.3 support is enabled)])],
+  [AC_MSG_NOTICE([LLCP1.3 support is disabled (no secure P2P)])])
+
+AC_SUBST(LIBNXP_NFC_PRIVATE_PKGS)
 
 AM_CONDITIONAL([CHIP_SEL_ONE], [if [$pn7150]; then
 AC_MSG_NOTICE([Selected chip type is PN7150])
