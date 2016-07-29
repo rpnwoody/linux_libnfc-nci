@@ -5,12 +5,6 @@ lib_LTLIBRARIES = libnxp_nfc.la
 sbin_PROGRAMS = nfcDemoApp 
 nfcDemoApp_DEPENDENCIES = libnxp_nfc.la
 
-LDFLAGS = -Bstatic 
-
-if LLCP1_3
-LDFLAGS += $(OPENSSL_LIBS)
-endif
-
 nfcDemoApp_FLAGS = -I$(srcdir)/demoapp -I$(srcdir)/src/include 
 
 AM_CPPFLAGS = \
@@ -232,14 +226,14 @@ libnxp_nfc_la_FLAGS += -DPH_NCI_NXP_HAL_ENABLE_FW_DOWNLOAD=FALSE
 endif
 
 libnxp_nfc_la_LIBADD = $(AC_LIBOBJS)
-libnxp_nfc_la_LDFLAGS :=
-libnxp_nfc_la_LDFLAGS +=-DPN547C2=1
-libnxp_nfc_la_LDFLAGS +=-DPN548C2=2
-libnxp_nfc_la_LDFLAGS +=-DPN551C2=3
-libnxp_nfc_la_LDFLAGS += \
-	-shared -pthread -ldl -lrt -fPIC \
-	-version-info $(LIBNXP_NFC_CURRENT):$(LIBNXP_NFC_REVISION):$(LIBNXP_NFC_AGE)
+libnxp_nfc_la_LDFLAGS := -Bstatic
+libnxp_nfc_la_LDFLAGS += -DPN547C2=1
+libnxp_nfc_la_LDFLAGS += -DPN548C2=2
+libnxp_nfc_la_LDFLAGS += -DPN551C2=3
+libnxp_nfc_la_LDFLAGS += -shared -pthread -ldl -lrt -fPIC
+libnxp_nfc_la_LDFLAGS += -version-info $(LIBNXP_NFC_CURRENT):$(LIBNXP_NFC_REVISION):$(LIBNXP_NFC_AGE)
+libnxp_nfc_la_LDFLAGS += $(OPENSSL_LIBS)
 
-nfcDemoApp_LDFLAGS = -pthread -ldl -lrt -lnxp_nfc
+nfcDemoApp_LDFLAGS = -Bstatic -pthread -ldl -lrt -lnxp_nfc $(OPENSSL_LIBS)
 
 EXTRA_DIST = conf doc
